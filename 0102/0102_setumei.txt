@@ -1,0 +1,114 @@
+■線形再帰と反復
+処理プロセスで膨張と収縮の形をとるものが再帰的プロセス（膨張は遅延演算。収縮は実際に処理を実行）
+
+再帰的プロセスとは対照的に伸び縮みしないのが反復。
+　反復は状態変数、状態が移った時にどう更新するかを表す処理、プロセスを終了させる条件で構成される。
+
+
+問1.9
+(define (inc a)
+  (+ a  1))
+
+(define (dec a)
+  (- a 1))
+
+(define (+ a b)
+  (if (= a 0)
+	  b
+		(inc (+ (dec a) b))))
+
+(define  (+ a b)
+   (in (= a 0)
+	 b
+	 (+ (dec a) (inc b))))
+
+
+最初が反復
+
+次は再帰的
+
+
+問1.10
+(define (A x y)
+  (cond ((= y 0) 0)
+	      ((= x 0) (* 2 y))
+				((= y 1) 2)
+				(else (A (- x 1)
+				         (A x (- y 1))))))
+
+
+(define (f n) (A 0 n))
+ -> 2n
+
+(define (g n) (A 1 n))
+->2のn乗
+
+(define h n) (A 2 n))
+->2の2のn乗
+
+
+1.2.2
+木構造再帰
+数値ではなく、階層構造のデータを扱うプロセスを考える時、木構造再帰は自然で協力な道具である。
+
+
+
+例）両替の計算
+1000円の場合
+　500円を最初に使った場合、次も500円を使うのか、それとも100円を使うのかで分かれるということ
+　次に100円を使った場合、残り400円に対して次も100円なのか、次は50円なのかということか
+
+
+(define (count-change amount)
+  (cc amount 5))
+
+(define (cc amount kinds-of-coins)
+  (cond ((= amount 0) 1)
+	      ((or (< amount 0) (= kinds-of-coins 0)) 0)
+				(else (+ (cc amount
+				             (- kinds-of-coins 1))
+								 (cc (- amount
+								        (first-denomination kinds-of-coins))
+										 kinds-of-coins)))))
+(define (first-denomination kinds-of-coins)
+        (cond ((= kinds-of-coins 1) 1)
+				      ((= kinds-of-coins 2) 5)
+							((= kinds-of-coins 3) 10)
+							((= kinds-of-coins 4) 25)
+							((= kinds-of-coins 5) 50)))
+(count-change 100)
+
+
+
+問1.11
+---再起的 プロセス----
+(define (func n)
+  (cond ((< n 3) n)
+	      ((>= n 3) (+ func(n-1) (* 2 func(n-2)) (* 3 func(n-3))))))
+
+---反復的プロセス---
+(define (func n)
+   (fact-iter 1 n))
+
+(define (fact-iter product counter )
+   (if (<  counter 3)
+	  (func counter)
+		(fact-iter (+ (* counter (func counter)) (* (- counter 1) (func (- counter 1))) (* (- counter 2) (func (- counter 2))))
+               (- counter 1)
+							 )))
+
+問1.12
+
+ (define (pascal x y)
+        (cond ((= x 0) 0)
+          ((= x 1) 1)
+					((= y 1) 1)
+          ((= x y) 1)
+          (else (+ (pascal (- x 1) (- y 1)) (pascal (- x 2) (- y 1))))
+          )
+        )
+p
+
+問1.13
+
+
