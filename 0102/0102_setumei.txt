@@ -1,3 +1,7 @@
+
+参考：
+http://swatmac.info/?tag=sicp&paged=4
+
 ■線形再帰と反復
 処理プロセスで膨張と収縮の形をとるものが再帰的プロセス（膨張は遅延演算。収縮は実際に処理を実行）
 
@@ -102,7 +106,7 @@
 ---再起的 プロセス----
 (define (func n)
   (cond ((< n 3) n)
-	      ((>= n 3) (+ func(n-1) (* 2 func(n-2)) (* 3 func(n-3))))))
+	      ((>= n 3) (+ func(- n 1) (* 2 func(- n 2)) (* 3 func(- n 3))))))
 
 ---反復的プロセス---
 (define (func n)
@@ -122,10 +126,10 @@
           ((= x 1) 1)
 					((= y 1) 1)
           ((= x y) 1)
-          (else (+ (pascal (- x 1) (- y 1)) (pascal (- x 2) (- y 1))))
+          (else (+ (pascal x  (- y 1)) (pascal (- x 1) (- y 1))))
           )
         )
-p
+
 
 問1.13
 問題の意味が分かりません。
@@ -136,6 +140,140 @@ p
 1)P(1) が成り立つ事を示す。
 2)任意の自然数 k に対して、P(k) ⇒ P(k + 1) が成り立つ事を示す。
 3)以上の議論から任意の自然数 n について P(n) が成り立つ事を結論づける。
+
+
+■増加
+k1f(n) < R(n) < k2f(n)
+
+
+問1.14
+
+     11
+	1     10
+
+count-changeがどのような式で洗わせるのか。それで導ける。
+階乗の問題ではシータ(n）で増加。スペースもシータ(n)で増加
+
+スペースは？
+ステップ数の増加
+
+
+問1.15
+ラジアン→角度を表す
+
+(define (cube x) (* x x x))
+(define (p x) (- (* 3 x) (* 4 (cube x))))
+
+(define (sine angle)
+     (if (not (> (abs angle) 0.1))
+		     angle
+				 (p (sine (/ angle 3.0)))))
+
+a.
+(sine 12.15)
+->(p (sine 4.5))
+->(p (p (sine 1.5)))
+->(p (p (p (sine 0.5))))
+->(p (p (p (p (sine 0.16)))))
+->(p (p (p (p 0.16))))
+pは４回実行
+
+
+b.
+ステップ数の増加：a/3.0
+スペース：
+
+
+1.2.4 べき乗
+
+(define (expt b n)
+  (if (= n 0)
+	     1
+			(* b (expt b (- n 1)))))
+
+
+(define (expt b n)
+      (expt-iter b n 1))
+
+(define (expt-iter b counter product)
+   (if (= counter 0)
+	     product
+			 (expt-iter b
+			          (- counter 1)
+								(* b product))))
+
+問1.16
+
+
+問1.17
+
+問1.18
+
+問1.19
+
+
+
+■最大公約数
+GCD(206.40)
+ ->GCD(40,6)=>(6,4)=>(4,2)=>(2,0)
+
+Euclidのアルゴリズム
+
+(define (gcd a b)
+  (if (= b 0)
+	a
+	(gcd b (remainder a b))))
+
+
+問1.20
+
+作用的順序：引数を評価してから展開
+正規順序：完全に展開してから評価
+
+正規順序で展開していくという話
+(gcd 206 40)
+->
+(gcd 40 (remainder 206 40))
+->
+(gcd (remainder 206 40) (remainder 40 (remainder 206 40)))
+
+
+(define (gcd a b)
+(if (=  40 0)
+    206
+		(gcd 40 (remainder 206 40)))
+
+->
+(if (= 40 0)
+    206
+		(if (= (remainder 206 40) 0)
+		  40
+		(gcd (remainder 206 40) (remainder 
+
+こうなるみたいだが、おえなかった
+
+(gcd 206 40)
+;;
+(if (= 40 0)
+    206
+    (if (= (remainder 206 40) 0)
+        40
+        (if (= (remainder 40 (remainder 206 40)) 0)
+            (remainder 206 40)
+            (if (= (remainder (remainder 206 40) (remainder 40 (remainder 206 40))) 0)
+                (remainder 40 (remainder 206 40))
+                (if (= (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))) 0)
+                    (remainder (remainder 206 40) (remainder 40 (remainder 206 40))))))))
+
+
+作用的順序の場合
+(gcd 206 40)
+=> (gcd 40 remainder 206 40)
+=> (gcd 40  6)
+=> (gcd 6 4) => (gcd (4 2)
+=>(gcd 2  0)
+-> 合計で6回
+
 
 
 
