@@ -59,6 +59,13 @@ a.
      1
     (* (term a) (product term (next a) next b)))
 
+
+πの計算は・・・
+ (define (pi-term n) 
+   (if (even? n) 
+       (/ (+ n 2) (+ n 1)) 
+       (/ (+ n 1) (+ n 2)))) 
+
 b.
 (define (product term a next b)
     (define (iter a result)
@@ -76,6 +83,12 @@ a.
        (if (> a b) null-value
         (combiner (term a) (accumulate combiner null-value term (next a) next b)))) 
 
+
+(define (sum  term a next b)
+   (accumulate + 0 term a next b)
+	 )
+
+
 b.
       
 (define (accumulate combiner null-value term a next b)
@@ -91,5 +104,41 @@ a
 
 b
 
+--------------------------------------------------------------
+1.3.2 lambdaを使う手続き
 
 
+
+
+1.34
+(define (f g)
+ (g 2))
+
+ (f square)
+ 4
+
+ (f (lambda (z) (* z (+ z 1))))
+ 6
+
+
+
+区間二分法
+(define (close-enough? x y)
+        (< (abs (- x y)) 0.001))
+
+(define (search f neg-point pos-point) 
+    (let ((midpoint (average neg-point pos-point)))
+      (if (close-enough? neg-point pos-point)
+			midpoint
+			(let ((test-value (f midpoint)))
+			  (cond ((positive? test-value)
+				       (search f neg-point midpoint))
+							((negative? test-value)
+							 (search f midpoint pos-point))
+							 (else midpoint))))))
+
+不動点
+
+
+
+	
