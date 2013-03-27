@@ -1,5 +1,5 @@
 
-参：
+：
 http://swatmac.info/?tag=sicp&paged=4
 http://community.schemewiki.org/?SICP-Solutions
 
