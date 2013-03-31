@@ -198,10 +198,30 @@ define (tan-cf x k)
   ;更に -1 が係数として計算されているのでそれも一緒に除算。
   (/ (cont-frac n d k) x -1))
 
+(define (cont-frac n d k)
+  (define (iter i result)
+    (let ((Ni (n i))
+          (Di (d i)))
+      (if (= i 0)
+          result
+          (iter (- i 1) (/ Ni (+ Di result))))))
+  (iter k 0))
 
+(define (contr-tan x k)
+        (cont-frac (lambda(i)
+                     (if (= i 1) x (- (* x x))))
+                   (lambda(i)
+                     (* (- (* 2 i) 1)))
+                     
+                   k))
+
+---------------------------------
 
 
 1.40
+x^3 + a*x^2 + b*x + c = 0
+ということだとすると
+
 (define (cubic a b c)
   (lambda (x)
     (+ (* x x x)
@@ -209,14 +229,61 @@ define (tan-cf x k)
        (* b x)   
        c))) 
 
+???
+今までのと同じようにしてやるという良い？
 
 
 1.41
 (define (double f)
-  (lambda (x)
-    (f (f x))))
+    (lambda (x)
+        (f (f x))))
+
 (define (inc x)
-  (+ 1 x))
+     (+ x 1))
+
+(((double (double double)) inc) 5 )
+->21
+
+(((double (lambda(x)
+               (double (double x)))
+   )
+inc)
+5)
+->
+(
+ (
+  (lambda (y)
+    ((lambda (x)
+          (double (double x)))
+    ((lambda (x) (double (double x))) y)
+
+  )
+  )
+  inc)
+  5)
+=>
+y にincを適用させる
+(
+  (
+   (lambda (x)
+      (double (double x)))
+    ((lambda (x) (double (double x))) inc)
+  )
+ 5)
+->
+
+(( lambada(x)
+    (double (double x)))
+    (double (double inc)) 5)
+->
+(
+  (double (double (double (double inc)))
+ 5)
+->
+ってことは5に16を加算するということになり、
+[21]
+
+1.42
 
 
 
