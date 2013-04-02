@@ -229,8 +229,6 @@ x^3 + a*x^2 + b*x + c = 0
        (* b x)   
        c))) 
 
-???
-今までのと同じようにしてやるという良い？
 
 
 1.41
@@ -283,9 +281,106 @@ y にincを適用させる
 ってことは5に16を加算するということになり、
 [21]
 
+
+------復習----------
 1.42
+((compose square inc) 6)
+->49
+
+(define (inc x) (+ x 1))
+(define (square x) (* x x))
+
+(define (compose f g)
+  (lambda (x) (f (g x))))
 
 
+
+1.43
+(define (inc x) (+ x 1))
+(define (square x) (* x x))
+
+(define (my-compose f g)
+  (lambda (x) (f (g x))))
+
+(define (repeated f n)
+  (define (iter g m)
+    (if (= m 1)
+        g
+        (iter (my-compose f g) (- m 1))))
+  (iter f n))
+
+
+1.44
+
+(define dx 0.01)
+
+(define (smooth f)
+  (let ((prev (lambda (x) (f (- x dx))))
+        (mid (lambda (x) (f x)))
+        (next (lambda (x) (f (+ x dx)))))
+  (lambda (x) (/ (+ (prev x) (mid x) (next x)) 3.0))))
+
+;合っている気がする
+((smooth (lambda (x) (* x x))) 3)
+
+1.45
+問題の意味としては、
+y -> x/y  平均緩和1回
+y -> x^2/y 平均緩和1回
+y -> x^3/y 平均緩和2回
+
+平均緩和
+y = f(y) y<<<不動点
+
+y = ((y + f(y) /2)
+
+上の式は次のような形のはず
+(define (average-dump f)
+     (lambda (y)
+		    (/ (+ y (f y)) 2)
+				))
+
+
+(define (n-root n k x)
+    fixed_point ([K会定期用k] ,[n乗根を求めたい]))
+
+
+(define (n-root n k x)
+  (fixed_point (repeated (average-ddump k) ,[※)))
+
+※：n乗根をも止める
+
+
+
+^^^^^使う定義^^^^^^^^^^^^^^
+(define (inc x) (+ x 1))
+(define (square x) (* x x))
+
+(define (compose f g)
+  (lambda (x) (f (g x))))
+
+(define (repeated f n)
+  (define (iter g m)
+    (if (= m 1)
+        g
+        (iter (compose f g) (- m 1))))
+  (iter f n))
+
+
+(define (average x y)
+    (/ (+ x y) 2))
+
+(define (fixed-point2 f first-guess)
+        (define (close-enough? v1 v2)
+          (< (abs (- v1 v2) tolerance))
+          (define (try guess)
+            (let ((next (f guess)))
+              (display next)
+              (newline)
+              (if (close-enough? guess next)
+                next
+                (try next))))
+          (try first-guess))
 
 
 
