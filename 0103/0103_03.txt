@@ -379,7 +379,10 @@ y = ((y + f(y) /2)
 (define (average x y)
     (/ (+ x y) 2))
 
-(define (fixed-point2 f first-guess)
+(define (close-enough? x y)
+  (< (abs (- x y)) 0.001))
+
+(define (fixed-point f first-guess)
         (define (close-enough? v1 v2)
           (< (abs (- v1 v2) tolerance))
           (define (try guess)
@@ -389,7 +392,42 @@ y = ((y + f(y) /2)
               (if (close-enough? guess next)
                 next
                 (try next))))
-          (try first-guess))
+          (try first-guess)))
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1.46
+反復改良法（iterative-improvement）
+最初に設定した予測値が適切な誤差範囲であれば、OKだけど、不十分だったらその予測値を改良してそれが適切かみる。
+
+iterative-improve は引数として予測値をとり、予測値が十分良好になるまで改良を繰り返す手続きを値として返す。
+
+→引数は予測値？
+
+(define (iterative-improve guess f)
+  [予測値が十分良好になるまで改善を繰り返す手続き]
+)
+
+=>
+(define (iterative-improve f guess)
+    (define (iter x n)
+      (if (= n 1)
+         x
+      (iter (improve x) (- n 1))))
+    (iter f n))
+
+
+・sqrt
+まだ未検証だけど。。。
+(define (sqrt first-guess x)
+  (define (close-enough? guess)
+    (< (abs (- guess f( guess))) 0.001))
+  (define (improve x)
+     (f guess))
+((interative-improve ?? ??) guess))
+
+・fixed_point
+
 
 
 
