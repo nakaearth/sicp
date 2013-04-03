@@ -342,17 +342,26 @@ y = ((y + f(y) /2)
 
 
 (define (n-root n k x)
-    fixed_point ([K会定期用k] ,[n乗根を求めたい]))
+    fixed_point ([K回適用] ,[n乗根を求めたい], 1.0))
+
+(define (beki x n)
+  (if (= n 1)
+	   x
+		 (* x (beki x (- n 1)))))
+
 
 
 (define (n-root n k x)
-  (fixed_point (repeated (average-ddump k) ,[※)))
+  (fixed_point (repeated (average-ddump k) 
+	              ,lambda(y) 
+							   (/ x (beki x n))  	
+								, 1.0)))
 
-※：n乗根をも止める
+※：n乗根を求める
 
 
 
-^^^^^使う定義^^^^^^^^^^^^^^
+^^^^^^^^^使う定義^^^^^^^^^^^^^^
 (define (inc x) (+ x 1))
 (define (square x) (* x x))
 
