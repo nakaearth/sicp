@@ -410,13 +410,13 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
 
 =>
 
-(define (clouse-enough? x y)
+(define (close-enough? x y)
   (< (abs (- x y)) 0.001))
 
-(define (iterative-improve guess clouse-enough? improve)
+(define (iterative-improve guess close-enough? improve)
   (define (iter-improve first-guess )
       (let ((next (improve guess)))
-        (if (clouse-enough? guess next)
+        (if (close-enough? guess next)
           next 
          (iter-improve next))))
     (iter-improve guess))
@@ -430,7 +430,7 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
     (< (abs (- (* guess guess) x)) 0.00001))
   (define (improve x)
      (/ (+  guess (/ guess )) 2))
-((interative-improve clouse-enough? improve) 1.0))
+((interative-improve close-enough? improve) 1.0))
 
 ・fixed_point
 (define (fixed-point f first-guess)
