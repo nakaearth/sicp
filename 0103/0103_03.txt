@@ -412,7 +412,7 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
 
 (define (iterative-improve close-enough? improve guess)
   (define (iter-improve first-guess)
-        (if (close-enough?  first-guess)
+        (if (close-enough?  first-guess x)
           first-guess
          (iter-improve (improve first-guess) )))
   (iter-improve guess))
@@ -422,7 +422,7 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
 ・sqrt
 まだ未検証だけど。。。
 (define (sqrt x)
-  (define (close-enough? guess)
+  (define (close-enough? guess y)
     (< (abs (- (* guess guess) x)) 0.00001))
   (define (improve guess)
      (/ (+  guess (/ x guess)) 2))
