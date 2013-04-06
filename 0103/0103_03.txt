@@ -415,8 +415,8 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
 
 (define (iterative-improve close-enough? improve guess)
   (define (iter-improve first-guess )
-      (let ((next (improve guess)))
-        (if (close-enough? guess next)
+      (let ((next (improve first-guess)))
+        (if (close-enough? first-guess next)
           next 
          (iter-improve next))))
     (iter-improve guess))
