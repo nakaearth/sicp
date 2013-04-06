@@ -400,7 +400,7 @@ y = ((y + f(y) /2)
 反復改良法（iterative-improvement）
 最初に設定した予測値が適切な誤差範囲であれば、OKだけど、不十分だったらその予測値を改良してそれが適切かみる。
 
-iterative-improve は引数として予測値をとり、予測値が十分良好になるまで改良を繰り返す手続きを値として返す。
+iterative-improve は「引数として予測値をとり、予測値が十分良好になるまで改良を繰り返す手続き」を値として返す。
 
 →引数は予測値？
 
@@ -409,25 +409,39 @@ iterative-improve は引数として予測値をとり、予測値が十分良�
 )
 
 =>
-(define (iterative-improve f guess)
-    (define (iter x n)
-      (if (= n 1)
-         x
-      (iter (improve x) (- n 1))))
-    (iter f n))
+
+(define (clouse-enough? x y)
+  (< (abs (- x y)) 0.001))
+
+(define (iterative-improve guess clouse-enough? improve)
+  (define (iter-improve first-guess )
+      (let ((next (improve guess)))
+        (if (clouse-enough? guess next)
+          next 
+         (iter-improve next))))
+    (iter-improve guess))
+
 
 
 ・sqrt
 まだ未検証だけど。。。
 (define (sqrt first-guess x)
   (define (close-enough? guess)
-    (< (abs (- guess f( guess))) 0.001))
+    (< (abs (- (* guess guess) x)) 0.00001))
   (define (improve x)
-     (f guess))
-((interative-improve ?? ??) guess))
+     (/ (+  guess (/ guess )) 2))
+((interative-improve clouse-enough? improve) first-guess))
 
 ・fixed_point
-
+(define (fixed-point f first-guess)
+  ;精度チェック手続き
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2) ) 0.00001))
+  ;改良手続き
+  (define (improve guess)
+    (f guess))
+  ;反復改良法を使う
+  ((iterative-improve close-enough? improve) (first-guess)))
 
 
 
