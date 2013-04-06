@@ -430,7 +430,7 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
     (< (abs (- (* guess guess) x)) 0.00001))
   (define (improve x)
      (/ (+  guess (/ guess )) 2))
-((interative-improve close-enough? improve) 1.0))
+((iterative-improve close-enough? improve) 1.0))
 
 ・fixed_point
 (define (fixed-point f first-guess)
