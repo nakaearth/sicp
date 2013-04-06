@@ -1,0 +1,236 @@
+■1.3.4
+
+1.40
+x^3 + a*x^2 + b*x + c = 0
+ということだとすると
+
+(define (cubic a b c)
+  (lambda (x)
+    (+ (* x x x)
+       (* a x x) 
+       (* b x)   
+       c))) 
+
+
+
+1.41
+(define (double f)
+    (lambda (x)
+        (f (f x))))
+
+(define (inc x)
+     (+ x 1))
+
+(((double (double double)) inc) 5 )
+->21
+
+(((double (lambda(x)
+               (double (double x)))
+   )
+inc)
+5)
+->
+(
+ (
+  (lambda (y)
+    ((lambda (x)
+          (double (double x)))
+    ((lambda (x) (double (double x))) y)
+
+  )
+  )
+  inc)
+  5)
+=>
+y にincを適用させる
+(
+  (
+   (lambda (x)
+      (double (double x)))
+    ((lambda (x) (double (double x))) inc)
+  )
+ 5)
+->
+
+(( lambada(x)
+    (double (double x)))
+    (double (double inc)) 5)
+->
+(
+  (double (double (double (double inc)))
+ 5)
+->
+ってことは5に16を加算するということになり、
+[21]
+
+
+------復習----------
+1.42
+((compose square inc) 6)
+->49
+
+(define (inc x) (+ x 1))
+(define (square x) (* x x))
+
+(define (compose f g)
+  (lambda (x) (f (g x))))
+
+
+
+1.43
+(define (inc x) (+ x 1))
+(define (square x) (* x x))
+
+(define (my-compose f g)
+  (lambda (x) (f (g x))))
+
+(define (repeated f n)
+  (define (iter g m)
+    (if (= m 1)
+        g
+        (iter (my-compose f g) (- m 1))))
+  (iter f n))
+
+
+1.44
+
+(define dx 0.01)
+
+(define (smooth f)
+  (let ((prev (lambda (x) (f (- x dx))))
+        (mid (lambda (x) (f x)))
+        (next (lambda (x) (f (+ x dx)))))
+  (lambda (x) (/ (+ (prev x) (mid x) (next x)) 3.0))))
+
+;合っている気がする
+((smooth (lambda (x) (* x x))) 3)
+
+1.45
+問題の意味としては、
+y -> x/y  平均緩和1回
+y -> x^2/y 平均緩和1回
+y -> x^3/y 平均緩和2回
+
+平均緩和
+y = f(y) y<<<不動点
+
+y = ((y + f(y) /2)
+
+上の式は次のような形のはず
+(define (average-dump f)
+     (lambda (y)
+		    (/ (+ y (f y)) 2)
+				))
+
+
+(define (n-root n k x)
+    fixed_point ([K回適用] ,[n乗根を求めたい], 1.0))
+
+(define (beki x n)
+  (if (= n 1)
+	   x
+		 (* x (beki x (- n 1)))))
+
+
+
+(define (n-root n k x)
+  (fixed_point (repeated (average-ddump k) 
+	              ,lambda(y) 
+							   (/ x (beki x n))  	
+								, 1.0)))
+
+※：n乗根を求める
+
+
+
+^^^^^^^^^使う定義^^^^^^^^^^^^^^
+(define (inc x) (+ x 1))
+(define (square x) (* x x))
+
+(define (compose f g)
+  (lambda (x) (f (g x))))
+
+(define (repeated f n)
+  (define (iter g m)
+    (if (= m 1)
+        g
+        (iter (compose f g) (- m 1))))
+  (iter f n))
+
+
+(define (average x y)
+    (/ (+ x y) 2))
+
+(define (close-enough? x y)
+  (< (abs (- x y)) 0.001))
+
+(define (fixed-point f first-guess)
+        (define (close-enough? v1 v2)
+          (< (abs (- v1 v2) tolerance))
+          (define (try guess)
+            (let ((next (f guess)))
+              (display next)
+              (newline)
+              (if (close-enough? guess next)
+                next
+                (try next))))
+          (try first-guess)))
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1.46
+反復改良法（iterative-improvement）
+最初に設定した予測値が適切な誤差範囲であれば、OKだけど、不十分だったらその予測値を改良してそれが適切かみる。
+
+iterative-improve は「引数として予測値をとり、予測値が十分良好になるまで改良を繰り返す手続き」を値として返す。
+
+→引数は予測値？
+
+(define (iterative-improve guess f)
+  [予測値が十分良好になるまで改善を繰り返す手続き]
+)
+
+=>
+
+(define (iterative-improve close-enough? improve guess)
+  (define (iter-improve first-guess)
+        (if (close-enough?  first-guess )
+          first-guess
+         (iter-improve (improve first-guess) )))
+  (iter-improve guess))
+
+
+
+・sqrt
+(define (sqrt x)
+  (define (close-enough? guess )
+    (< (abs (- (* guess guess) x)) 0.00001))
+  (define (improve guess)
+     (/ (+  guess (/ x guess)) 2))
+(iterative-improve close-enough? improve 1.0))
+
+->
+(sqrt 16)
+(sqrt 100)
+動いてそうだ
+
+
+・fixed_point
+(define (fixed-point f first-guess)
+  ;精度チェック手続き
+  (define (close-enough? v1)
+    (< (abs (- v1 (f v1)) ) 0.00001))
+  ;改良手続き
+  (define (improve guess)
+    (f guess))
+  ;反復改良法を使う
+  (iterative-improve close-enough? improve 1.0))
+
+=>
+
+ (define (average x y)
+        (/ (+ x y) 2))
+ (fixed-point (lambda (x) (average x (+ 1 (/ 1 x)))) 1.0) 
+1.6180248320058461
+
+

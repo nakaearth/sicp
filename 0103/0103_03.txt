@@ -446,7 +446,10 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
   (iterative-improve close-enough? improve 1.0))
 
 =>
-(fixed-point (lambda (x) (average x (+ 1 (/ 1 x)))) 1.0)             
 
+ (define (average x y)
+        (/ (+ x y) 2))
+ (fixed-point (lambda (x) (average x (+ 1 (/ 1 x)))) 1.0) 
+1.6180248320058461
 
 
