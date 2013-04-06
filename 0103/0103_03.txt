@@ -445,5 +445,8 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
   ;反復改良法を使う
   (iterative-improve close-enough? improve 1.0))
 
+=>
+(fixed-point (lambda (x) (average x (+ 1 (/ 1 x)))) 1.0)             
+
 
 
