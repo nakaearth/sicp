@@ -429,7 +429,9 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
 (iterative-improve close-enough? improve 1.0))
 
 ->
-(sqrt 16 1.0)
+(sqrt 16)
+(sqrt 100)
+動いてそうだ
 
 
 ・fixed_point
@@ -441,7 +443,7 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
   (define (improve guess)
     (f guess))
   ;反復改良法を使う
-  ((iterative-improve close-enough? improve guess) (first-guess)))
+  (iterative-improve close-enough? improve 1.0))
 
 
 
