@@ -128,16 +128,16 @@ y = ((y + f(y) /2)
 
 (define (beki x n)
   (if (= n 1)
-	   x
-		 (* x (beki x (- n 1)))))
+  x
+  (* x (beki x (- n 1)))))
 
 
 
 (define (n-root n k x)
   (fixed_point (repeated (average-ddump k) 
-	              ,lambda(y) 
-							   (/ x (beki x n))  	
-								, 1.0)))
+  lambda(y) 
+  (/ x (beki x n))  	
+  1.0)))
 
 ※：n乗根を求める
 
