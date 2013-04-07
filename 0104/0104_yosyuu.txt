@@ -121,9 +121,9 @@ y = ((y + f(y) /2)
 
 
 (define (average-damp f)
-     (lambda (y)
-		    (/ (+ y (f y)) 2)
-				))
+  (lambda (y)
+    (/ (+ y (f y)) 2)
+))
 
 (define (beki x n)
   (if (= n 1)
