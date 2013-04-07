@@ -133,12 +133,10 @@ y = ((y + f(y) /2)
 (define (n-root n k x)
   (fixed_point (repeated (average-damp k) 
   lambda(y) 
-  (/ x (beki x n))  	
+  (/ x (beki y n))  	
   1.0)))
 
 ※：n乗根を求める
-
-
 
 ^^^^^^^^^使う定義^^^^^^^^^^^^^^
 (define (inc x) (+ x 1))
@@ -174,6 +172,8 @@ y = ((y + f(y) /2)
           (try first-guess))
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(n-root 4 2 5)
 
 1.46
 反復改良法（iterative-improvement）
