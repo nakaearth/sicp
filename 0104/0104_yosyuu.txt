@@ -132,9 +132,9 @@ y = ((y + f(y) /2)
 
 (define (n-root n k x)
   (fixed_point (repeated (average-damp k) 
-  lambda(y) 
+  (lambda(y) 
   (/ x (beki y n))  	
-  1.0)))
+  1.0))))
 
 ※：n乗根を求める
 
