@@ -116,25 +116,22 @@ y = f(y) y<<<不動点
 
 y = ((y + f(y) /2)
 
-上の式は次のような形のはず
-(define (average-dump f)
+(define (n-root n k x)
+    fixed_point ([K回適用] ,[n乗根を求めたい], 1.0))
+
+
+(define (average-damp f)
      (lambda (y)
 		    (/ (+ y (f y)) 2)
 				))
-
-
-(define (n-root n k x)
-    fixed_point ([K回適用] ,[n乗根を求めたい], 1.0))
 
 (define (beki x n)
   (if (= n 1)
   x
   (* x (beki x (- n 1)))))
 
-
-
 (define (n-root n k x)
-  (fixed_point (repeated (average-ddump k) 
+  (fixed_point (repeated (average-damp k) 
   lambda(y) 
   (/ x (beki x n))  	
   1.0)))
