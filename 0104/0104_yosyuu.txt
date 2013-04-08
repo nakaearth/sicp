@@ -191,8 +191,7 @@ define (k-cal n)
    (floor (/ (log n) (log 2))))
 
 (define (n-root n x)
-  (let ((k (k-cal n))))
-  (fixed-point ((repeated average-damp k) 
+  (fixed-point ((repeated average-damp (k-cal n)) 
   (lambda(y) 
   (/ x (beki y (- n 1)))))  	
  
