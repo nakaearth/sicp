@@ -133,7 +133,7 @@ y = ((y + f(y) /2)
 (define (n-root n k x)
   (fixed-point ((repeated average-damp k) 
   (lambda(y) 
-  (/ x (beki y (- n 1)))))  	
+  (/ x (beki y (- n 1)))))
   1.0))
 
 ※：n乗根を求める
@@ -194,7 +194,14 @@ define (k-cal n)
   (fixed-point ((repeated average-damp (k-cal n)) 
   (lambda(y) 
   (/ x (beki y (- n 1)))))  	
- 
+
+(define (n-root n k x)
+  (fixed-point ((repeated average-damp (k-cal n)) 
+  (lambda(y) 
+  (/ x (beki y (- n 1)))))
+  1.0))
+
+
 
 1.46
 反復改良法（iterative-improvement）
