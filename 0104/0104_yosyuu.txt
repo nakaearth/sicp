@@ -190,12 +190,8 @@ k=log2 n =>log n/log2
 define (k-cal n)
    (floor (/ (log n) (log 2))))
 
-(define (n-root n x)
-  (fixed-point ((repeated average-damp (k-cal n)) 
-  (lambda(y) 
-  (/ x (beki y (- n 1)))))  	
 
-(define (n-root n k x)
+(define (n-root n  x)
   (fixed-point ((repeated average-damp (k-cal n)) 
   (lambda(y) 
   (/ x (beki y (- n 1)))))
