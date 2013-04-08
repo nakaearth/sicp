@@ -174,7 +174,28 @@ y = ((y + f(y) /2)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 (n-root 4 2 5)
-だめだ良く分からんぞ。。。
+
+  2 4 8 16
+k 11 2222 3333333 4444444444444
+n 23 4567 89   15
+              
+n乗根を計算するのに
+
+kをnから求める式
+log2 6
+
+2^k=n
+k=log2 n =>log n/log2 
+
+define (k-cal n)
+   (floor (/ (log n) (log 2))))
+
+(define (n-root n x)
+  (let ((k (k-cal n))))
+  (fixed-point ((repeated average-damp k) 
+  (lambda(y) 
+  (/ x (beki y (- n 1)))))  	
+ 
 
 1.46
 反復改良法（iterative-improvement）
