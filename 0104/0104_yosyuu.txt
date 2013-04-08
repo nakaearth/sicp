@@ -133,7 +133,7 @@ y = ((y + f(y) /2)
 (define (n-root n k x)
   (fixed-point ((repeated average-damp k) 
   (lambda(y) 
-  (/ x (beki y n))))  	
+  (/ x (beki (y (- n 1)))))  	
   1.0))
 
 ※：n乗根を求める
