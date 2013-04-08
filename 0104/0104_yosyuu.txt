@@ -232,15 +232,15 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
 
 
 ・sqrt
-(define (sqrt x)
+(define (sqrt x first-guess)
   (define (close-enough? guess )
     (< (abs (- (* guess guess) x)) 0.00001))
   (define (improve guess)
      (/ (+  guess (/ x guess)) 2))
-(iterative-improve close-enough? improve))
+((iterative-improve close-enough? improve) first-guess))
 
 ->
-(sqrt 16)
+(sqrt 16 1.0)
 (sqrt 100)
 動いてそうだ
 
