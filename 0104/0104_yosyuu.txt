@@ -220,6 +220,15 @@ iterative-improve は「引数として予測値をとり、予測値が十分�
          (iter-improve (improve first-guess) )))
   (iter-improve guess))
 
+->
+(define (iterative-improve close-enough? improve)
+  (define (iter-improve first-guess)
+        (if (close-enough?  first-guess )
+          first-guess
+         (iter-improve (improve first-guess) )))
+  (lambda (guess) (iter-improve guess)))
+
+
 
 
 ・sqrt
