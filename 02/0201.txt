@@ -54,19 +54,19 @@ ax+by という計算処理を例に上げて説明してる。
 
 
 (define (add-rat x y)
-  (make-rat (+ (* (numer x) (denom y))
-	             (* (numer y) (denom x)))
-					  (* (denom x) (denom y))))
+ (make-rat (+ (* (numer x) (denom y))
+   (* (numer y) (denom x)))
+(* (denom x) (denom y))))
 
 
 (define (sub-rat x y)
-   (make-rat (- (* (numer x) (denom y))
-                (* (numer y) (denom x)))
-						(* (denom x) (denom y))))
+ (make-rat (- (* (numer x) (denom y))
+   (* (numer y) (denom x)))
+(* (denom x) (denom y))))
 
 (define (mul-rat x y)
-    (make-rat (* (numer x) (numer y))
-		          (* (denom x) (denom y))))
+ (make-rat (* (numer x) (numer y))
+ (* (denom x) (denom y))))
 
 
 ・対
