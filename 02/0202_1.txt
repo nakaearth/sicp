@@ -84,7 +84,7 @@ last-pair
 
 > (define (last-pair list1)
         (if (= (length list1) 1)
-          (list (car list1))
+          list1
           (last-pair (cdr list1))))
 last-pair
 > (last-pair (list 1 2 3))
