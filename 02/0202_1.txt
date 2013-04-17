@@ -64,8 +64,6 @@ gosh> (define (length items)
           (+ 1 (length (cdr items)))))
 length
 gosh> (define (last-pair list1)
-        (if (= (length list1) 1)
-				  (car list1))
         (if (= (length list1) 2)
           (cdr list1)
           (last-pair (cdr list1))))
