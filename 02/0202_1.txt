@@ -71,6 +71,16 @@ last-pair
 gosh> (last-pair (list 1 2 3 4))
 (4)
 
+(define (last-pair list1)
+  (if (= (length list1) 1) list1)
+  (if (= (length list1) 2)
+    (cdr list1)
+    (last-pair (cdr list1))))
+last-pair
+
+
+(last-pair (list 1 2 3))
+(3)
 
 
 
