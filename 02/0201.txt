@@ -115,7 +115,7 @@ gosh> (cdr z)
 Q2.1
 (define (make-ratn d)
   (let ((g (gcd n d)))
-	 (if (> (/ n d) 0) 
+	 (if (< (/ n d) 0) 
 	  (* -1 (cons (/ n g) (/ d g)))
 	  (cons (/ n g) (/ d g))
 	 )
