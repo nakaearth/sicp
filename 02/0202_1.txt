@@ -199,8 +199,8 @@ gosh> (f 1 2 3 4 5)
 
 (define (same-parity . x)
   (if (= (mod (car x) 2) 0)
-      (even-parity x)
-      (odd-parity x))
+   (list (even-parity x))
+   (list (odd-parity x)))
 )
 
 
