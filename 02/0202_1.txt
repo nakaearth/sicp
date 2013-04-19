@@ -181,7 +181,7 @@ gosh> (f 1 2 3 4 5)
       (e-iter (cons (car olist) elist) (cdr olist))
       (e-iter elist (cdr olist))) 
    )
-   (e-iter (list ) y)
+   (e-iter (list ) (list y))
 )
 
 (define (odd-parity . z)
