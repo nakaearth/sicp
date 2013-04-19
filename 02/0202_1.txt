@@ -191,7 +191,7 @@ gosh> (f 1 2 3 4 5)
    (if (null? olist)
 	 odlist
    (if (= (mod (car olist) 2) 1)
-     (o-iter (append oddlist (list (car olist))) (cdr olist))
+     (o-iter (append odlist (list (car olist))) (cdr olist))
      (o-iter odlist (cdr olist)))) 
  )
  (o-iter (list ) z)
@@ -200,7 +200,8 @@ gosh> (f 1 2 3 4 5)
 (define (same-parity . x)
   (if (= (mod (car x) 2) 0)
       (even-parity x)
-      (odd-parity x)))
+      (odd-parity x))
+)
 
 
 
