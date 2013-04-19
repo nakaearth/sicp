@@ -104,6 +104,90 @@ last-pair
 	(r-iter (list ) list1))
 
 
+(Q2.19)
+
+1.2.2の22ページ両替の計算を確認すると。そこに定義されているccに注目する。
+ここではamountが丁度0なら1を
+　　　　amountが0よりすくなければ、0を
+　　　　amountがコインの種類が0ならば両替の数も0。
+これを再帰的に繰り返している。
+
+
+(define us-coins (list 50 25 10 5 1))
+
+(define uk-coins (list 100 50 20 10 5 2 1 0.5))
+
+与えられた金額を両替するのに、どのくらいの場合の数があるかを計算する処理
+
+(cc 100 us-coins)
+
+(define (cc amount coin-values)
+ (cond ((= amount 0) 1)
+   ( (or (< 	amount 0) (no-more? coin-values) ) 0)
+ (else
+   (+ (cc amount
+         (except-first-denomination coin-values))
+      (cc (- amount
+             (first-denomination coin-values))
+          coin-values) ) ) ) )
+
+
+(define (first-denomination coin-values)
+    (car coin-values)
+)
+
+
+(define (except-first-denomination coin-values)
+  (cdr  coin-values)
+)
+
+(define (no-more? coin-values) 
+  (null? coin-values)
+)
+
+gosh> (cc 100 us-coins)
+292
+gosh> (cc 50 us-coins)
+50
+gosh> (cc 10 us-coins)
+4
+gosh> (cc 20 us-coins)
+9
+
+
+(Q2.20)
+(define (f x y . z
+  z  
+)
+
+(f 1 2 3 4 5)
+
+osh> (define (f x y . z) z)
+f
+gosh> (f 1 2 3 4 5)
+(3 4 5)
+
+以下のようになるsame-parity は何か？
+(same-parity 1 2 3 4 5 6 7)
+-> (1 3 5 7)
+
+(same-parity 2 3 4 5 6)
+-> (2 4 6)
+
+(define (same-parity . x)
+  (define (even-parity . y)
+     (if (= mod(car y) 0)
+       (cons (car y) (even-parity (cdr y)))
+       (even-parity cdr y)) 
+  )
+  (define (odd-parity . z)
+     (if (= mod(car z) 1)
+       (cons (car z) (odd-parity (cdr z)))
+       (odd-parity (cdr z)))
+  )
+  (if (= (mod (car x) 2) 0)
+      (even-parity x)
+      (odd-parity x)))
 
 
 
