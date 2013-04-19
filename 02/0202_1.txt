@@ -174,7 +174,7 @@ gosh> (f 1 2 3 4 5)
 (same-parity 2 3 4 5 6)
 -> (2 4 6)
 
-(define (even-parity . y)
+(define (even-parity y)
  (define (e-iter elist olist)
    (if (null? olist)
 	 elist
@@ -186,7 +186,7 @@ gosh> (f 1 2 3 4 5)
  (e-iter (list  )  y)
 )
 
-(define (odd-parity . z)
+(define (odd-parity  z)
  (define (o-iter odlist olist)
    (if (null? olist)
 	 odlist
@@ -199,8 +199,8 @@ gosh> (f 1 2 3 4 5)
 
 (define (same-parity . x)
   (if (= (mod (car x) 2) 0)
-   (list (even-parity x))
-   (list (odd-parity x)))
+    (even-parity x)
+    (odd-parity x))
 )
 
 
