@@ -224,7 +224,7 @@ gosh> (same-parity 2 3 4 5 6)
 高階手続きを適用させたる→この手続きがmap
 (define (map proc items)
   (if (null? items)
-	    ""
+	    ()
 			(cons (proc (car items))
 			     (map proc (cdr items)))))
 
@@ -235,7 +235,7 @@ gosh> (same-parity 2 3 4 5 6)
 (Q2.21)
 (define (square-list items)
   (if (null? items)
-	    ""
+	    ()
 			(cons (* (car items) (car items)) (square-list (cdr items)))))
 
 
