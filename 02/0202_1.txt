@@ -222,7 +222,7 @@ gosh> (same-parity 2 3 4 5 6)
 
 
 高階手続きを適用させたる→この手続きがmap
-(define (map proc items)
+(define (my_map proc items)
   (if (null? items)
 	    ()
 			(cons (proc (car items))
