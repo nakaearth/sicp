@@ -282,6 +282,7 @@ gosh> (square-list (list 1 2 3 4))
     (display "===answer==>")
     (newline)
     (display answer)
+    (newline)
 	  (if (null? things)
     answer
     (iter (cdr things)
