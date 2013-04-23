@@ -295,4 +295,20 @@ gosh> (square-list (list 1 2 3 4))
    (iter items ()))
 
 
+(Q2.23)
 
+(for-earch (lambda (x) (newline) (display x))
+  (list 57 321 88))
+
+(define (for-each proc items)
+  (map proc items))
+
+----------------------------------------
+gosh> (define (for-each proc items)
+        (map proc items))
+for-each
+gosh> (for-each (lambda(x) (newline) (display x))
+                (list 57 321 88))
+57
+321
+88(#<undef> #<undef> #<undef>)
