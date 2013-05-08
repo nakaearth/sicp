@@ -312,3 +312,8 @@ gosh> (for-each (lambda(x) (newline) (display x))
 57
 321
 88(#<undef> #<undef> #<undef>)
+
+
+
+
+

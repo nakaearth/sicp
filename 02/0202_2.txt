@@ -25,3 +25,54 @@ gosh> (count-leaves x)
       2   (3 4)
             |
            3 4
+
+
+
+(Q2.25)
+
+
+
+
+(Q2.26)
+gosh> (define x (list 1 2 3))
+x
+gosh> (define y (list 4 5 6))
+y
+gosh> (append x y)
+(1 2 3 4 5 6)
+gosh> (cons x y)
+((1 2 3) 4 5 6)
+gosh> (list x y)
+((1 2 3) (4 5 6))
+gosh> 
+
+(Q2.27)
+(define x (list (list 1 2) (list 3 4)))
+
+
+(define (reverse list1)
+  (define (r-iter rlist list2)
+    (if  (null? list2) 
+     rlist
+     (r-iter (cons (car list2) rlist) (cdr list2))))
+  (r-iter (list ) list1))
+
+(reverse x)
+
+> (reverse x)
+((3 4) (1 2))
+
+(define (deep-reverse list1)
+  (define (r-iter rlist list2)
+    (if  (null? list2) 
+     rlist
+     (r-iter (cons
+             (if  pair? (car list2))
+						   (r-iter( () (car list2))
+               rList))
+             (cdr list2))))
+  (r-iter (list ) list1))
+
+    
+
+
