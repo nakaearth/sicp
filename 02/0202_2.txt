@@ -84,7 +84,7 @@ gosh>
   (define (f-iter f-list list2)
     (if (null? list2)
       f-list
-    (f-iter (cons f-list
+    (f-iter (append f-list
               (if pair?  (car list2)
               (f-iter () (car list2))
                ))
