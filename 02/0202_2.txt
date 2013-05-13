@@ -95,7 +95,7 @@ gosh> (fringe (list x x))
 (define (fringe list1)
   (define (f-iter f-list list2)
     (cond ((null? list2) f-list)
-      ( (pair? list2) (append f-list list2))
+      ( (not (pair? list2)) (append f-list list2))
       (else 
      (f-iter (append  f-list (car list2)) (cdr list2)))))
    (append (f-iter (list ) list1)))
