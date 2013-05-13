@@ -85,5 +85,5 @@ gosh>
     (if (null? list2)
       f-list
      (f-iter (append  f-list (car list2)) (cdr list2))))
-   (f-iter (list ) list1))
-	 
+   (append (f-iter (list ) list1)))
+
