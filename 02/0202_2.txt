@@ -81,7 +81,7 @@ gosh>
 (1234)
 
 (define (fringe list1)
-  (define (f-iter f-list list)
+  (define (f-iter f-list list2)
     (if (null? list2)
       f-list1
     (f-iter (cons f-list
