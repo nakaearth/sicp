@@ -87,3 +87,23 @@ gosh>
      (f-iter (append  f-list (car list2)) (cdr list2))))
    (append (f-iter (list ) list1)))
 
+gosh> (fringe x)
+(1 2 3 4)
+gosh> (fringe (list x x))
+((1 2) (3 4) (1 2) (3 4))
+
+(define (fringe list1)
+  (define (f-iter f-list list2)
+    (cond (null? list2) f-list)
+      ( (pair? list2) (append f-list list2))
+      (else 
+     (f-iter (append  f-list (car list2)) (cdr list2))))
+   (append (f-iter (list ) list1)))
+
+
+
+(Q2.29)
+(define (make-mobile left right)
+  (list left right))
+
+
