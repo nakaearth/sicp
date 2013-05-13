@@ -106,4 +106,34 @@ gosh> (fringe (list x x))
 (define (make-mobile left right)
   (list left right))
 
+(define (make-branch length structure)
+  (list length structure))
+
+a.
+(define (left-branch list1))
+
+b. 
+
+
+c.
+
+
+d.
+
+
+
+木の写像
+(define (scale-tree tree factor)
+  (cond ((null? tree) nil)
+     ((not (pair?	tree)) (* tree factor))
+     (else (cons (scale-tree (car tree) factor)
+                 (scale-tree (cdr tree) factor)))))
+
+(define (square-list tree)
+  (cond ((null? tree) nil)
+    ((not (pair? tree)) (* tree tree))
+    (else (cons (square-list (car tree))
+                (square-list (cdr tree)))))) 
+
+
 
