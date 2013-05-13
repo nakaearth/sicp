@@ -74,5 +74,19 @@ gosh>
   (r-iter (list ) list1))
 
     
+(Q2.28)
+(define x (list (list 1 2) (list 3 4)))
 
+(fringe x)
+(1234)
 
+(define (fringe list1)
+  (define (f-iter f-list list)
+    (if (null? list2)
+      f-list1
+    (f-iter (cons f-list
+              (if pair?  (car list2))
+              (f-iter( () (car list2))
+               ))
+               (cdr list2))))
+   (f-iter (list ) list1))
