@@ -85,8 +85,9 @@ gosh>
     (if (null? list2)
       f-list1
     (f-iter (cons f-list
-              (if pair?  (car list2))
-              (f-iter( () (car list2))
+              (if pair?  (car list2)
+              (f-iter () (car list2))
                ))
                (cdr list2))))
    (f-iter (list ) list1))
+	 
