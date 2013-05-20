@@ -1,0 +1,28 @@
+
+■公認インターフェースとしての並び
+
+define (filter pred seq)
+  (cond ((null? seq) (list))
+        ((pred (car seq))
+         (cons (car seq)
+               (filter pred (cdr seq))))
+        (else (filter pred (cdr seq)))))
+
+(filter odd? (list 1 2 3 4 5))
+; => (1 3 5)
+
+(define (accumlate op init seq)
+  (if (null? seq)
+      init
+      (op (car seq)
+          (accumlate op init (cdr seq)))))
+
+(Q2.33)
+
+
+
+(define (mymap p sequence)
+   (accumulate (lambda (x y) (cons (p (car sequence)) (mymap p (cdr (sequence)))) (list) sequence))
+
+
+

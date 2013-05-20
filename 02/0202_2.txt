@@ -1,4 +1,4 @@
-2.2.2 階層構造
+.2.2 階層構造
 
 (cons (list 1 2) (list 3 4))
 
@@ -110,16 +110,15 @@ gosh> (fringe (list x x))
   (list length structure))
 
 a.
-(define (left-branch list1))
+(define left-branch list1)
+(define righ-branch (lambda (x) (car (cdr x))))
+(define branch-length car)
+(define branch-structure (lambda (x) (car (cdr x))))
 
-b. 
+b.
 
 
 c.
-
-
-d.
-
 
 
 木の写像
@@ -130,11 +129,14 @@ d.
                  (scale-tree (cdr tree) factor)))))
 
 (Q2.30)
-(define (square-list tree)
+(define (square-tree tree)
   (cond ((null? tree) () )
     ((not (pair? tree)) (* tree tree))
     (else (cons (square-list (car tree))
                 (square-list (cdr tree)))))) 
+
+(square-tree (list 1 (list 2 (list 3 4 ) 5) (list 6 7)))
+(1 (4 (9 16) 25) (36 49))
 
 (Q2.31)
 (define (square-tree tree) (tree-map square tree))
@@ -144,6 +146,18 @@ d.
   (cond ((null? tree) nil)
      ((not (pair? tree)) (proc tree))
 		 (else (cons tree-map (car tree))
-		        (square-list (cdr tree)))
+		        (tree-map (cdr tree)))
      ))
+
+
+(Q2.32)
+(define (subsets s)
+  (if (null? s)
+      (list)
+      (let ((rest (subsets (cdr s))))
+        (append rest (if (null? rest) (list (list) s) (map (lambda (x) (cons (car s) x)) rest))))))
+
+
+
+
 
