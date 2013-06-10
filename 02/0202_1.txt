@@ -303,8 +303,8 @@ gosh> (square-list (list 1 2 3 4))
 (define (for-each proc items)
   (map proc items))
 
-----------------------------------------
-gosh> (define (for-each proc items)
+
+g-sh> (define (for-each proc items)
         (map proc items))
 for-each
 gosh> (for-each (lambda(x) (newline) (display x))
@@ -312,6 +312,17 @@ gosh> (for-each (lambda(x) (newline) (display x))
 57
 321
 88(#<undef> #<undef> #<undef>)
+
+
+(define (for-each proc items)
+  (proc (car items))
+  (if (null? (cdr items))
+      #t
+      (for-each proc (cdr items))))
+
+
+(for-each (lambda (x) (newline) (display x))
+          (list 57 321 88))
 
 
 

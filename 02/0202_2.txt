@@ -29,8 +29,7 @@ gosh> (count-leaves x)
 
 
 (Q2.25)
-
-
+((cdr (cdr list1))
 
 
 (Q2.26)
@@ -68,7 +67,7 @@ gosh>
      rlist
      (r-iter (cons
              (if  pair? (car list2))
-						   (r-iter( () (car list2))
+               (r-iter( () (car list2))
                rList))
              (cdr list2))))
   (r-iter (list ) list1))
