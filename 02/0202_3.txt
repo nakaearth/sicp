@@ -35,4 +35,6 @@ define (filter pred seq)
   (accumulate  () 0 sequence))
 
 
+(Q2.34)
+
 

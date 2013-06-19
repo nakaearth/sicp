@@ -61,16 +61,11 @@ gosh>
 > (reverse x)
 ((3 4) (1 2))
 
-(define (deep-reverse list1)
-  (define (r-iter rlist list2)
-    (if  (null? list2) 
-     rlist
-     (r-iter (cons
-             (if  pair? (car list2))
-               (r-iter( () (car list2))
-               rList))
-             (cdr list2))))
-  (r-iter (list ) list1))
+(define (deep-reverse l)
+  (let iter ((left l) (result (list)))
+    (cond ((null? left) result)
+          ((pair? left) (iter (cdr left) (cons (deep-reverse (car left)) result)))
+          (else left))))
 
     
 (Q2.28)
